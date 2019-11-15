@@ -34,7 +34,7 @@ root@123123:~#
 
 _Unless explicitly stated, SSH access means accessing the host balenaOS and not a container._
 
-## Filesystem and Partition Layout
+## 1. Filesystem and Partition Layout
 
 balenaOS uses a specific filesystem layout. There are 6 partitions:
 
@@ -45,7 +45,7 @@ balenaOS uses a specific filesystem layout. There are 6 partitions:
 - _empty alignment block that might look like partition_
 - `resin-data`: balenaEngine(docker) storage partition that has the supervisor and application containers.
 
-### The State Partition
+### 1.1 The State Partition
 
 `resin-rootA/B` are mounted read-only, although there are some configuration files that are read-write. These are overlayed from the state partition and bind mounted. More detail can be seen [here](https://www.balena.io/docs/reference/OS/overview/2.x/#stateless-and-read-only-rootfs).
 
@@ -84,7 +84,7 @@ root@123123:~# ls /mnt/state/root-overlay/etc/NetworkManager/
 conf.d  system-connections
 ```
 
-### Determining the Specific Layout on a Device
+### 1.2 Determining the Specific Layout on a Device
 
 When you access a balenaOS device from a terminal without specifying a service, you are in the hostOS.
 
@@ -123,7 +123,7 @@ lrwxrwxrwx 1 root root  10 Nov  5 08:06 resin-rootB -> ../../sda3
 lrwxrwxrwx 1 root root  10 Nov  5 08:06 resin-state -> ../../sda5
 ```
 
-### State Partition and the Root Overlay
+### 1.3 State Partition and the Root Overlay
 
 People familiar with Linux but not balenaOS will naturally look for `boot` or `/resin-boot`. That will, in most cases be the wrong place to look. You most probably want to look at `/mnt/boot/`.
 
@@ -133,11 +133,11 @@ But I want to know more:
 
 - `/boot`: These are just the containers copy. The real boot files from bootloaders perspective are in `/mnt/sysroot/active/current/boot`.
 
-## systemd Services
+## 2. systemd Services
 
 We use `systemd` as the init system in balenaOS. There are various `systemd` services that handle many different parts of the OS.
 
-### Key systemd Services and Descriptions
+### 2.1 Key systemd Services and Descriptions
 
 - `chronyd.service` : A daemon that manages time in the OS via NTP
 - `NetworkManager.service` : A daemon that manages network connections
@@ -152,7 +152,7 @@ Other services that are not as commonly asked about:
 - `plymouth*.service`: daemon that manages the balenaOS logo on the screen when booted (splash screen)
 - `*getty*.service`: provides a login shell over serial/HDMI, with username: `root`
 
-### Checking the State of a Device and/or Services
+### 2.2 Checking the State of a Device and/or Services
 
 `systemctl` is a cli utility as part of systemd that can be used to check various services.
 
@@ -179,11 +179,11 @@ root@123123:~# systemctl status Mod*
            └─533 /usr/sbin/ModemManager --log-journal
 ```
 
-## journalctl
+## 3. journalctl
 
 Logs from boot, containers, and various services go to `systemd-journald`. The way to see those logs is via the `journalctl` command. Here are some common use case scenarios.
 
-### Checking logs for a Service
+### 3.1 Checking logs for a Service
 
 ```shell
 root@123123:~# journalctl -u chr*
@@ -193,7 +193,7 @@ Oct 17 13:39:32 localhost chronyd[562]: 2019-10-17T13:39:32Z Frequency -4.270 +/
 Oct 17 13:39:37 123123 chronyd[562]: 2019-10-17T13:39:39Z Selected source 195.171.43.10
 ```
 
-### Viewing `[blob data]` in `balena.service` Logs
+### 3.2 Viewing `[blob data]` in `balena.service` Logs
 
 For example:
 
@@ -232,7 +232,7 @@ Oct 17 13:40:04 123123 resin-supervisor[1569]: Starting system message bus: dbus
 
 Can use `-n 100` to limit the output to 100 lines.
 
-### Tailing all Logs Generated in Realtime
+### 3.3 Tailing all Logs Generated in Realtime
 
 Use `--follow` (whose short version is `-f`). This is follow mode. This will now run as an executable in the shell and show logs as they come. Useful if you are triggering some action from another shell such as connection reconnect:
 
@@ -244,7 +244,7 @@ Oct 23 10:25:29 123123 resin-supervisor[1569]: [api]     GET /v1/healthy 200 - 3
 Oct 23 10:27:13 123123 balenad[646]: time="2019-10-23T10:27:13.181274213Z" level=info msg="shim balena-engine-containerd-shim started" address=/containerd-shim/moby/b0a4366b92bb08d85d1a4b93e0b9a2a79c9cf7019a27360ba0734a4a12e65a29/shim.sock debug=false pid=154195
 ```
 
-### Tailing Logs for a Service Generated in Realtime
+### 3.4 Tailing Logs for a Service Generated in Realtime
 
 For example, tailing NetworkManager logs as a cable is connect/disconnected:
 
@@ -256,7 +256,7 @@ Oct 22 20:41:15 123123 NetworkManager[632]: <info>  [1571776875.9158] device (en
 Oct 22 20:41:15 123123 NetworkManager[632]: <info>  [1571776875.9159] dhcp4 (enp0s3): canceled DHCP transaction
 ```
 
-### Tailing Logs for Multiple Services Generated in Realtime
+### 3.5 Tailing Logs for Multiple Services Generated in Realtime
 
 For example, you want to restart an app container and keep an eye on balena/NetworkManager and supervisor:
 
@@ -268,11 +268,11 @@ Oct 23 10:32:47 123123 00f53f8d26e5[646]: [debug]   Attempting container log tim
 Oct 23 10:32:47 123123 00f53f8d26e5[646]: [debug]   Container log timestamp flush complete
 ```
 
-### Viewing Logs in Reverse
+### 3.6 Viewing Logs in Reverse
 
 Useful as you are usually interested in the most recent logs. Use `journalctl -r`.
 
-## Determining Free Disk Space
+## 4. Determining Free Disk Space
 
 The data and state sometimes fill up. We have mitigations, but if they fill up, bad things happen.
 
@@ -291,24 +291,24 @@ root@123123:~#
 - `-h`: human readable
 - `| grep mnt`: only interested in real partitions and not the virtual file systems
 
-## NetworkManager
+## 5. NetworkManager
 
-### Connect to a WiFi SSID whilst Running balenaOS
+### 5.1 Connect to a WiFi SSID whilst Running balenaOS
 
 Lets use `nmcli` to connect a device to a WiFI network:
 
 - Syntax: `nmcli device wifi connect SSID password 'PASSWORD'`
 - Example: `nmcli device wifi connect AndroidAP_1234 password 'nopassword'`
 
-### Making NetworkManager Logs more Verbose in Four ways
+### 5.2 Making NetworkManager Logs more Verbose in Four ways
 
-#### At runtime from HostOS
+#### 5.2.1 At runtime from HostOS
 
 `nmcli` supports changing the NetworkManager daemon log level at run time.
 
 `nmcli general logging level DEBUG domain ALL`
 
-#### Via dbus from Inside a Container
+#### 5.2.2 Via dbus from Inside a Container
 
 Start a container that has the dbus socket inside it.
 
@@ -330,7 +330,7 @@ Nov 05 13:10:00 123123 systemd[1]: systemd-journald.service: Got notification me
 Nov 05 13:10:00 123123 NetworkManager[608]: <info>  [1572959400.8962] manager: logging: level 'DEBUG' domains 'PLATFORM,RFKILL,ETHER,WIFI,BT,MB,DHCP4,DHCP6,PPP,WIFI_SCAN,IP4,IP6,AUTOIP4,DNS,VPN,SHARING,SUPPLICANT,AGENTS,SETTINGS,SUSPEND,CORE,DEVICE,OLPC,INFINIBAND,FIREWALL,ADSL,BOND,VLAN,BRIDGE,DBUS_PROPS,TEAM,CONCHECK,DCB,DISPATCH,AUDIT,SYSTEMD,VPN_PLUGIN:INFO,PROXY'
 ```
 
-#### Editing OS Config Files to Persist on Reboot
+#### 5.2.3 Editing OS Config Files to Persist on Reboot
 
 - Remount the OS as read-write `mount -o remount,rw /`
 - Edit `vi /etc/NetworkManager/NetworkManager.conf`
@@ -348,7 +348,7 @@ systemctl daemon-reload
 systemctl restart NetworkManager
 ```
 
-#### Editing the systemd service and pass flags
+#### 5.2.4 Editing the systemd service and pass flags
 
 Check the system service status to see the service file:
 
@@ -372,13 +372,13 @@ systemctl daemon-reload
 systemctl restart NetworkManager
 ```
 
-## config.json
+## 6. config.json
 
 `config.json` is a file on the device in the boot partition that is the source of truth about lots of useful bits of information.
 
 **The real file is `/mnt/boot/config.json` and not `/resin-boot/config.json`**
 
-### Pretty-Printing config.json
+### 6.1 Pretty-Printing config.json
 
 If you use `cat` to print `/mnt/boot/config.json`, it will show the file as one long line. Use `jq` to pretty print it in a human readable format:
 
@@ -425,7 +425,7 @@ root@123123:~#
 
 Edits to `config.json` should not generally be needed. Changing various options in the balenaCloud dashboard results in the supervisor safely editing `config.json` and restarting the specific service that consumes the specific options. Editing by hand manually is an [advanced topic](#advanced-editing-configjson-by-hand) discussed later.
 
-## Editing the Core OS Files at Runtime
+## 7. Editing the Core OS Files at Runtime
 
 balenaOS root filesystem is read-only by default for more robustness. But editing the OS files can be quite useful if you want to add more logging/debugging flags while investigating an issue.
 
@@ -433,11 +433,11 @@ We can switch to read-write mode using the following command and then you can ed
 
 - `mount -o remount,rw /`
 
-## Viewing Kernel Messages
+## 8. Viewing Kernel Messages
 
 Use `dmesg` to see the kernel messages.
 
-## Determining if a Kernel Config Option is Enabled
+## 9. Determining if a Kernel Config Option is Enabled
 
 A copy of the kernel configuration is always available on a device in `/proc/config.gz`. Here is how you would search it to see if `CONFIG_SPI` is enabled on a device.
 
@@ -449,7 +449,7 @@ root@123123:~# zcat /proc/config.gz | grep -i config_spi*
 
 So, in this example, SPI is not enabled in the kernel for this device.
 
-## Running balenaOS on your Laptop
+## 10. Running balenaOS on your Laptop
 
 We can use docker to spin up a balenaOS container and run bash to poke around. Useful for various use-cases:
 
@@ -488,7 +488,7 @@ There is NO WARRANTY, to the extent permitted by law.
 bash-4.4#
 ```
 
-## Running an arm/aarch64 balenaOS Image on your Laptop
+## 11. Running an arm/aarch64 balenaOS Image on your Laptop
 
 We can use QEMU to run different arch docker images on a laptop. Windows/Mac users can use the same way as above. Linux users will need to install `binfmt-misc` and `qemu-user-static` packages and mount a statically linked qemu binary inside the container.
 
@@ -510,7 +510,7 @@ SLUG="raspberry-pi"
 bash-4.4#
 ```
 
-## Advanced: Editing config.json by Hand
+## 12. Advanced: Editing config.json by Hand
 
 It is generally not a good idea to hand-edit config.json. Here is a relatively safe way to do it.
 
@@ -540,7 +540,7 @@ root@123123:~# cat /mnt/boot/config.json  | jq .
 root@123123:~# mv /mnt/boot/config.json.new /mnt/boot/config.json
 ```
 
-## Advanced: dbus examples
+## 13. Advanced: dbus examples
 
 Run a service container with dbus socket inside:
 
