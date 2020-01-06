@@ -7,13 +7,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/balena-io-projects/balena-masterclass-skeleton.git"
+    "url": "git+ssh://git@github.com/balena-io/balena-masterclass-skeleton.git"
   },
   "author": "Matthew McGinn <matthew@balena.io>",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/balena-io-projects/balena-masterclass-skeleton/issues"
+    "url": "https://github.com/balena-io/balena-masterclass-skeleton/issues"
   },
-  "homepage": "https://github.com/balena-io-projects/balena-masterclass-skeleton#readme",
-  "private": "true"
+  "homepage": "https://github.com/balena-io/balena-masterclass-skeleton#readme",
+  "private": true
 }
