@@ -1,6 +1,6 @@
 {
   "name": "balena-masterclass-skeleton",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Forkable skeleton for balena masterclasses",
   "scripts": {
     "test": "echo \"There are no tests for this repository\" && exit 0"

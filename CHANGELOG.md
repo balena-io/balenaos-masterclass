@@ -5,4 +5,8 @@
 
 ## 0.0.3 - 2019-11-15
 
+## 0.0.4 - 2020-01-06
+
+* Org: Change from `balena-io-projects` to `balena-io` [Heds Simons]
+
 * Docs: Updating section heading numbers [Gareth Davies]
