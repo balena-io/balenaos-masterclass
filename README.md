@@ -1,7 +1,7 @@
 # balenaOS Masterclass
 
-**Masterclass Type:** Core
-**Maximum Expected Time To Complete:** 60 minutes
++ **Masterclass Type:** Core
++ **Maximum Expected Time To Complete:** 60 minutes
 
 # Introduction
 
