@@ -5,6 +5,10 @@
 
 ## 0.0.3 - 2019-11-15
 
+## 0.0.6 - 2020-02-12
+
+* Meta: Formatting for external docs [Gareth Davies]
+
 ## 0.0.5 - 2020-01-17
 
 * Minor spelling/formatting updates [Matthew McGinn]
