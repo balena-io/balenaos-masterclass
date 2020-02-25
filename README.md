@@ -566,6 +566,12 @@ Restart chronyd service on HostOS using `dbus-send`:
 DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket dbus-send --system --dest=org.freedesktop.systemd1 --type=method_call --print-reply /org/freedesktop/systemd1   org.freedesktop.systemd1.Manager.RestartUnit string:"chronyd.service" string:"replace"
 ```
 
+Stop plymouth service using `dbus-send`:
+
+```shell
+DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket dbus-send --system --dest=org.freedesktop.systemd1 --type=method_call --print-reply /org/freedesktop/systemd1   org.freedesktop.systemd1.Manager.StartUnit string:"plymouth-quit.service" string:"replace"
+```
+
 Change systemd log level to `debug`:
 
 ```shell
