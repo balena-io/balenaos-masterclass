@@ -5,6 +5,11 @@
 
 ## 0.0.3 - 2019-11-15
 
+# v0.0.7
+## (2020-02-25)
+
+* repo: Ensure type is present [Gareth Davies]
+
 ## 0.0.6 - 2020-02-12
 
 * Meta: Formatting for external docs [Gareth Davies]
