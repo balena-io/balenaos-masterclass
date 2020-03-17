@@ -551,7 +551,7 @@ balena run --rm -i -t -v /run/dbus/system_bus_socket:/host/run/dbus/system_bus_s
 Install `dbus-send`:
 
 ```shell
-apt-get update && dbus
+apt-get update && apt-get install dbus
 ```
 
 Scan dbus using `dbus-send`:
