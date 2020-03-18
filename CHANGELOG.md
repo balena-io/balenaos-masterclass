@@ -5,6 +5,11 @@
 
 ## 0.0.3 - 2019-11-15
 
+# v0.0.8
+## (2020-03-17)
+
+* Updating instructions for installing dbus [Gareth Davies]
+
 # v0.0.7
 ## (2020-02-25)
 
