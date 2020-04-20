@@ -5,6 +5,11 @@
 
 ## 0.0.3 - 2019-11-15
 
+# v0.0.9
+## (2020-04-20)
+
+* remove hedss as codeowner [Matthew McGinn]
+
 # v0.0.8
 ## (2020-03-17)
 
