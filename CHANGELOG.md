@@ -5,6 +5,11 @@
 
 ## 0.0.3 - 2019-11-15
 
+# v0.0.11
+## (2021-03-29)
+
+* Adds DBUS-send snippet to change Avahi hostname [ab77]
+
 # v0.0.10
 ## (2020-05-08)
 
