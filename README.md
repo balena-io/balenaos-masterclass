@@ -593,6 +593,21 @@ DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket \
   string:"org.freedesktop.timedate1"
 ```
 
+Changing Avahi hostname:
+
+```shell
+DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket \
+  dbus-send \
+  --system \
+  --print-reply \
+  --reply-timeout=2000 \
+  --type=method_call \
+  --dest=org.freedesktop.Avahi \
+  / \
+  org.freedesktop.Avahi.Server.SetHostName \
+  string:"${BALENA_DEVICE_UUID}"
+```
+
 `busctl` is another tool that is more user-friendly than `dbus-send`. It is part of the `systemd` package. Use `busctl` to restart chrony service:
 
 ```shell
