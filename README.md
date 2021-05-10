@@ -70,7 +70,7 @@ root@123123:~# mount
 /dev/mmcblk0p5 on /etc/ssh/hostkeys type ext4 (rw,relatime)
 /dev/mmcblk0p5 on /var/lib/systemd type ext4 (rw,relatime)
 /dev/mmcblk0p5 on /var/volatile/lib/systemd type ext4 (rw,relatime)
-/dev/mmcblk0p5 on /etc/resin-supervisor type ext4 (rw,relatime)
+/dev/mmcblk0p5 on /etc/balena-supervisor type ext4 (rw,relatime)
 /dev/mmcblk0p5 on /etc/hostname type ext4 (rw,relatime)
 /dev/mmcblk0p6 on /var/volatile/log/journal type ext4 (rw,relatime)
 ```
@@ -143,7 +143,7 @@ We use `systemd` as the init system in balenaOS. There are various `systemd` ser
 - `NetworkManager.service` : A daemon that manages network connections
 - `ModemManager.service` : A daemon that manages 2g/3g/4g modems connections
 - `balena.service` Runs the balenaEngine(docker) daemon on the device
-- `resin-supervisor.service` : Runs the balena-supervisor container
+- `balena-supervisor.service` : Runs the balena-supervisor container
 - `openvpn.service`: openVPN daemon to connect with balenaCloud VPN
 
 Other services that are not as commonly asked about:
@@ -222,12 +222,12 @@ Oct 17 13:43:11 123123 3c15d0f45caf[646]: > resin-websocket@1.0.1 start /usr/src
 Use `--no-pager` to stop output being piped into a paging utility (a side effect is that it dumps the full log in the terminal, which can be useful at times):
 
 ```shell
-root@123123:~# journalctl -u resin-sup* --all --no-pager
+root@123123:~# journalctl --all --no-pager -u balena-supervisor -u resin-supervisor
 -- Logs begin at Thu 2019-10-17 13:39:30 UTC, end at Wed 2019-10-23 08:08:33 UTC. --
-Oct 17 13:40:03 123123 resin-supervisor[1498]: resin_supervisor
-Oct 17 13:40:03 123123 resin-supervisor[1568]: active
-Oct 17 13:40:04 123123 resin-supervisor[1569]: Container config has not changed
-Oct 17 13:40:04 123123 resin-supervisor[1569]: Starting system message bus: dbus.
+Oct 17 13:40:03 123123 balena-supervisor[1498]: balena_supervisor
+Oct 17 13:40:03 123123 balena-supervisor[1568]: active
+Oct 17 13:40:04 123123 balena-supervisor[1569]: Container config has not changed
+Oct 17 13:40:04 123123 balena-supervisor[1569]: Starting system message bus: dbus.
 ```
 
 Can use `-n 100` to limit the output to 100 lines.
@@ -240,7 +240,7 @@ Use `--follow` (whose short version is `-f`). This is follow mode. This will now
 root@123123:~# journalctl -f --all --no-pager
 -- Logs begin at Thu 2019-10-17 13:39:30 UTC. --
 Oct 23 10:25:29 123123 00f53f8d26e5[646]: [api]     GET /v1/healthy 200 - 3.613 ms
-Oct 23 10:25:29 123123 resin-supervisor[1569]: [api]     GET /v1/healthy 200 - 3.613 ms
+Oct 23 10:25:29 123123 balena-supervisor[1569]: [api]     GET /v1/healthy 200 - 3.613 ms
 Oct 23 10:27:13 123123 balenad[646]: time="2019-10-23T10:27:13.181274213Z" level=info msg="shim balena-engine-containerd-shim started" address=/containerd-shim/moby/b0a4366b92bb08d85d1a4b93e0b9a2a79c9cf7019a27360ba0734a4a12e65a29/shim.sock debug=false pid=154195
 ```
 
@@ -263,7 +263,7 @@ For example, you want to restart an app container and keep an eye on balena/Netw
 ```shell
 root@123123:~# journalctl -u Netw* -u resin-su* -u bale* -f --all --no-pager
 -- Logs begin at Thu 2019-10-17 13:39:30 UTC. --
-Oct 23 10:30:30 123123 resin-supervisor[1569]: [api]     GET /v1/healthy 200 - 1.086 ms
+Oct 23 10:30:30 123123 balena-supervisor[1569]: [api]     GET /v1/healthy 200 - 1.086 ms
 Oct 23 10:32:47 123123 00f53f8d26e5[646]: [debug]   Attempting container log timestamp flush...
 Oct 23 10:32:47 123123 00f53f8d26e5[646]: [debug]   Container log timestamp flush complete
 ```
