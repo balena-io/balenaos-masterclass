@@ -5,6 +5,11 @@
 
 ## 0.0.3 - 2019-11-15
 
+# v0.0.12
+## (2021-05-10)
+
+* Rename resin-supervisor to balena-supervisor [Kyle Harding]
+
 # v0.0.11
 ## (2021-03-29)
 
