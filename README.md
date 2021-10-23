@@ -545,7 +545,7 @@ root@123123:~# mv /mnt/boot/config.json.new /mnt/boot/config.json
 Run a service container with dbus socket inside:
 
 ```shell
-balena run --rm -i -t -v /run/dbus/system_bus_socket:/host/run/dbus/system_bus_socket balenalib/intel-nuc-debian /bin/bash
+docker run --rm -i -t -v /run/dbus/system_bus_socket:/host/run/dbus/system_bus_socket balenalib/intel-nuc-debian /bin/bash
 ```
 
 Install `dbus-send`:
