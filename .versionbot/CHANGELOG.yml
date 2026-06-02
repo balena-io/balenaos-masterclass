@@ -1,4 +1,16 @@
 - commits:
+    - subject: Update README with balenaOS masterclass reference
+      hash: 8f6a8b335d132c5ed790fa98e9ac2f81c74c6962
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Matthew Yarmolinsky
+      nested: []
+  version: 0.0.15
+  title: ""
+  date: 2026-06-02T16:18:36.451Z
+- commits:
     - subject: "patch: Create flowzone.yml"
       hash: 2379ca2ff8cdc9f29f575f240d2498c58bcbc803
       body: ""
@@ -39,7 +51,8 @@
         * avahi-daemon runs on the host OS and responds to {{uuid-short}}.local
         by default
 
-        * setting `org.freedesktop.Avahi.Server.SetHostName` will make Avahi respond with the new hostname
+        * setting `org.freedesktop.Avahi.Server.SetHostName` will make Avahi
+        respond with the new hostname
 - version: 0.0.10
   date: 2020-05-08T19:53:18Z
   commits:

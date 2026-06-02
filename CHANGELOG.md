@@ -5,6 +5,11 @@
 
 ## 0.0.3 - 2019-11-15
 
+# v0.0.15
+## (2026-06-02)
+
+* Update README with balenaOS masterclass reference [Matthew Yarmolinsky]
+
 # v0.0.14
 ## (2023-12-20)
 
